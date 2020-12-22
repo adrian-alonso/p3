@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <xs:element name="Degree">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Name" type="NameType" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="Scope" type="ScopeType" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="Course" type="CourseType" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="location" use="optional">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Vigo"/>
+            <xs:enumeration value="Orense"/>
+            <xs:enumeration value="Pontevedra"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="NameType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="ScopeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="humanities"/>
+      <xs:enumeration value="science"/>
+      <xs:enumeration value="technology"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="CourseType">
+    <xs:sequence>
+      <xs:element name="Subject" type="SubjectType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="number" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:pattern value="[1-4]"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="SubjectType">
+    <xs:sequence>
+      <xs:element name="Name" type="NameType" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="Student" type="StudentType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="idSub" type="xs:ID" use="required"/>
+    <xs:attribute name="type" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="core"/>
+          <xs:enumeration value="specialty"/>
+          <xs:enumeration value="optional"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="StudentType" mixed="true">
+    <xs:sequence>
+      <xs:element name="Name" type="NameType" minOccurs="1" maxOccurs="1"/>
+      <xs:choice>
+        <xs:element name="Dni" type="DniType" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="Resident" type="ResidentType" minOccurs="1" maxOccurs="1"/>
+      </xs:choice>
+      <xs:element name="Grade" type="GradeType" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="EAML" type="EAMLType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="DniType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{8}[A-Z]"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ResidentType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z][0-9]{7}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="GradeType">
+    <xs:restriction base="xs:decimal">
+      <xs:fractionDigits value="2"/>
+      <xs:maxInclusive value="10"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EAMLType">
+    <xs:restriction base="xs:anyURI"/>
+  </xs:simpleType>
+
+</xs:schema>
