@@ -19,12 +19,15 @@ public class Sint101P3 extends HttpServlet {
   final static String JAXP_SCHEMA_SOURCE = "http://java.sun.com/xml/jaxp/properties/schemaSource";
 
   final static String xsd_url = "/p3/eaml.xsd";
-  //static String xml_url = "/p3/teleco.xml";
-  static String xml_url = "http://gssi.det.uvigo.es/users/agil/public_html/SINT/20-21/teleco.xml";
+  //static String xml_url = "/opt/tomcat/webapps/sint101/p3/20-21_EAML/teleco.xml";
+  static String xml_url = "/p3/20-21_EAML/teleco.xml";
+  //static String xml_url = "http://gssi.det.uvigo.es/users/agil/public_html/SINT/20-21/teleco.xml";
   static File xsd;
   static File xml;
   //Lista de documentos validos
-  static HashMap<String,Document> docsMap = new HashMap<String, Document>();
+  static HashMap<String, Document> docsMap = new HashMap<String, Document>();
+  //Lista de documentos xml
+  static HashMap<String, String> urlsMap = new HashMap<String, String>();
   //Listas de warnings, errores y errores fatales
   static ArrayList<WarningFile> warningsFiles = new ArrayList<WarningFile>();
   static ArrayList<ErrorFile> errorsFiles = new ArrayList<ErrorFile>();
@@ -38,7 +41,9 @@ public class Sint101P3 extends HttpServlet {
 
       //Llamo al parser
       Parser eamlParser = new Parser();
-      docsMap = eamlParser.parser(xml_url, servletcontext.getRealPath(xsd_url), servletcontext);
+      //docsMap = eamlParser.parser(xml_url, servletcontext.getRealPath(xsd_url), servletcontext);
+      docsMap = eamlParser.parser(servletcontext.getRealPath(xml_url), servletcontext.getRealPath(xsd_url), servletcontext);
+      urlsMap = eamlParser.getDegreesList();
 
       //Obtengo avisos
       warningsFiles = eamlParser.getWarningsFiles();
@@ -113,6 +118,14 @@ public class Sint101P3 extends HttpServlet {
          case "13":
            ArrayList<Student> students = getC1Students(pdegree, psubject);
            screen.phase13(req, res, pphase, pdegree, psubject, students);
+           break;
+
+         case "21":
+           screen.phase21(req, res, pphase, urlsMap);
+           break;
+
+         case "22":
+           screen.phase22(req, res, pphase, pdegree, urlsMap);
            break;
 
          default:

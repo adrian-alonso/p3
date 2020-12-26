@@ -19,7 +19,10 @@ public class Parser {
   String nextFile;
   ArrayList<String> filesList = new ArrayList<String>();
   int files = 0;
-  HashMap<String,Document> docsMap = new HashMap<String,Document>();
+  HashMap<String, Document> docsMap = new HashMap<String, Document>();
+  HashMap<String, String> urlsMap = new HashMap<String, String>();
+  ArrayList<String> degreesList = new ArrayList<String>();
+  ArrayList<String> okdregreesURL = new ArrayList<String>();
 
   //Listas para guardar los errores de las excepciones
   ArrayList<WarningFile> warningsFiles = new ArrayList<WarningFile>();
@@ -58,13 +61,6 @@ public class Parser {
   }
 
   public boolean searchEAML(String url, DocumentBuilder db, ServletContext servletcontext) {
-    //File eamlFile = null;
-    URL eamlFile = null;
-    try {
-      eamlFile = new URL(url);
-    } catch (Exception e) {
-    }
-
     boolean moreFiles = false;
 
     //Llama gestor de errores
@@ -89,6 +85,7 @@ public class Parser {
       //Obtenemos el grado
       NodeList degreenode = doc.getElementsByTagName("Name");
       degree = ((Element)degreenode.item(0)).getTextContent();
+      System.out.println(degree);
       //Obtenemos los nodos eaml
       NodeList eamlnodes = (NodeList)xpath.evaluate(exp, doc, XPathConstants.NODESET);
 
@@ -96,14 +93,20 @@ public class Parser {
       for (int i = 0; i < eamlnodes.getLength(); i++) {
         String nextFile_url = ((Element)eamlnodes.item(i)).getTextContent();
         nextFile = nextFile_url;
-        if (!filesList.contains("http://gssi.det.uvigo.es/users/agil/public_html/SINT/20-21/" + nextFile) && !nextFile.equals("")) {
-            filesList.add("http://gssi.det.uvigo.es/users/agil/public_html/SINT/20-21/" + nextFile);
+        // if (!filesList.contains("http://gssi.det.uvigo.es/users/agil/public_html/SINT/20-21/" + nextFile) && !nextFile.equals("")) {
+        //     filesList.add("http://gssi.det.uvigo.es/users/agil/public_html/SINT/20-21/" + nextFile);
+        //     moreFiles = true;
+        // }
+        if (!filesList.contains(servletcontext.getRealPath("/p3/20-21_EAML/" + nextFile)) && !nextFile.equals("")) {
+            filesList.add(servletcontext.getRealPath("/p3/20-21_EAML/" + nextFile));
             moreFiles = true;
         }
       }
 
     } catch(NullPointerException npe) {
+      System.out.println(npe);
     } catch (XPathExpressionException xpe_e) {
+      System.out.println(xpe_e);
     }
 
     //En caso de warnings
@@ -149,13 +152,30 @@ public class Parser {
     }
 
     //En caso de que el fichero este correcto
+    System.out.println(degree);
     if ((eaml_ErrorHandler.getWarning() == 0) && (eaml_ErrorHandler.getError() == 0) && (eaml_ErrorHandler.getFatalError() == 0)) {
       if ((degree != null) && (!(docsMap.containsKey(degree)))) {
         docsMap.put(degree,doc);
       }
+      System.out.println(degree + "; " + url);
+      //Creamos lista con los nombres de las tituaciones y los enlaces a sus respectivos archvivos XML
+      if ((degree != null) && (!(urlsMap.containsKey(degree)))) {
+        urlsMap.put(degree,url);
+      }
+
+      // if (!degreesList.contains(degree)) {
+      //   degreesList.add(degree);
+      // }
+      // if (!okdregreesURL.contains(url)) {
+      //   okdregreesURL.add(url);
+      // }
     }
 
     return moreFiles;
+  }
+
+  public HashMap<String, String> getDegreesList() {
+    return this.urlsMap;
   }
 
   //METODOS PARA OBTENER LAS LISTAS

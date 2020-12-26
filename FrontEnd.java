@@ -58,7 +58,8 @@ public class FrontEnd {
     out.println("<section>");
     out.println("<h3>Selecciona una consulta:</h3>");
     out.println("<ul>");
-    out.println("<li type=\"disc\"><a href=\"?pphase=11&p=" + password + "\">Consulta 1: Ver los alumnos de una asignatura de una titulaci&oacuten</a></li><br>");
+    out.println("<li type=\"disc\"><a href=\"?pphase=11&p=" + password + "\">Consulta 1: Ver los alumnos de una asignatura de una titulaci&oacute;n</a></li><br>");
+    out.println("<li type=\"disc\"><a href=\"?pphase=21&p=" + password + "\">Consulta 2: Ver informaci&oacute;n de una titulaci&oacute;n</a></li><br>");
     out.println("</section>");
     out.println("<footer>");
     out.println("<hr>");
@@ -426,6 +427,76 @@ public class FrontEnd {
     out.println("</students>");
   }
 
+  //FASE 21 - PRACTICA 3 (XSLT)
+  public void phase21 (HttpServletRequest request, HttpServletResponse response, String pphase, HashMap<String, String> urlsMap) throws IOException, ServletException {
+    String password = request.getParameter("p");
+
+    response.setContentType("text/html");
+    PrintWriter out = response.getWriter();
+    out.println("<!DOCTYPE html>");
+    out.println("<html>");
+    out.println("<head>");
+    out.println("<title>P3EA</title>");
+    out.println("<link rel=\"stylesheet\" href=\"/sint101/p3/eaml.css\">");
+    out.println("<meta charset=\"UTF-8\">");
+    out.println("</head>");
+    out.println("<body>");
+    out.println("<header>");
+    out.println("<h1>Servicio de consulta de expedientes acad&eacute;micos</h1>");
+    out.println("</header>");
+    out.println("<section>");
+    out.println("<h2>Consulta 2: Seleccione titulaci&oacute;n a consutar</h2>");
+    out.println("<ol>");
+    for (String degree : urlsMap.keySet()) {
+      out.println("<li><a href=\"?pphase=22&p=" + password + "&pdegree=" + degree + "\">" + degree + "</li>");
+    }
+    out.println("</ol>");
+    out.println("</section>");
+    out.println("<section>");
+    out.println("<a href=\"?pphase=01&p=" + password + "\" class=\"button\"><button class=\"homeButton\">Inicio</button></a>");
+    out.println("</section>");
+    out.println("<footer>");
+    out.println("<hr>");
+    out.println("<p>&copy; Adri&aacute;n Alonso Vilar (2020-2021)</p>");
+    out.println("</footer>");
+    out.println("</body>");
+    out.println("</html>");
+  }
+
+  //FASE 22 - PRACTICA 3 (XSLT)
+  public void phase22 (HttpServletRequest request, HttpServletResponse response, String pphase, String pdegree, HashMap<String, String> urlsMap) throws IOException, ServletException {
+    String password = request.getParameter("p");
+    String url = urlsMap.get(pdegree);
+
+    response.setContentType("text/html");
+    PrintWriter out = response.getWriter();
+    out.println("<!DOCTYPE html>");
+    out.println("<html>");
+    out.println("<head>");
+    out.println("<title>P3EA</title>");
+    out.println("<link rel=\"stylesheet\" href=\"/sint101/p3/eaml.css\">");
+    out.println("<meta charset=\"UTF-8\">");
+    out.println("</head>");
+    out.println("<body>");
+    out.println("<header>");
+    out.println("<h1>Servicio de consulta de expedientes acad&eacute;micos</h1>");
+    out.println("</header>");
+    out.println("<section>");
+    out.println("<h2>Consulta 2: Fase 2 (Titulaci&oacute;n=" + pdegree + ")</h2>");
+    out.println("<p>Este es el resultado:</p>");
+    out.println("<p>Grado: " + pdegree + "; URL: " + url + "</p>");
+    out.println("</section>");
+    out.println("<section>");
+    out.println("<a href=\"?pphase=01&p=" + password + "\" class=\"button\"><button class=\"homeButton\">Inicio</button></a>");
+    out.println("<a href=\"?pphase=21&p=" + password + "\" class=\"button\"><button class=\"backButton\">Atr&aacute;s</button></a>");
+    out.println("</section>");
+    out.println("<footer>");
+    out.println("<hr>");
+    out.println("<p>&copy; Adri&aacute;n Alonso Vilar (2020-2021)</p>");
+    out.println("</footer>");
+    out.println("</body>");
+    out.println("</html>");
+  }
 
   //ERRORES
 
