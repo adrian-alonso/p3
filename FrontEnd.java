@@ -493,37 +493,7 @@ public class FrontEnd {
             transformer.transform(datasource, result);
 
     } catch (Exception e) {
-      System.out.println(e);
     }
-
-    // response.setContentType("text/html");
-    // PrintWriter out = response.getWriter();
-    // out.println("<!DOCTYPE html>");
-    // out.println("<html>");
-    // out.println("<head>");
-    // out.println("<title>P3EA</title>");
-    // out.println("<link rel=\"stylesheet\" href=\"/sint101/p3/eaml.css\">");
-    // out.println("<meta charset=\"UTF-8\">");
-    // out.println("</head>");
-    // out.println("<body>");
-    // out.println("<header>");
-    // out.println("<h1>Servicio de consulta de expedientes acad&eacute;micos</h1>");
-    // out.println("</header>");
-    // out.println("<section>");
-    // out.println("<h2>Consulta 2: Fase 2 (Titulaci&oacute;n=" + pdegree + ")</h2>");
-    // out.println("<p>Este es el resultado:</p>");
-    // out.println("<p>Grado: " + pdegree + "; URL: " + url + "</p>");
-    // out.println("</section>");
-    // out.println("<section>");
-    // out.println("<a href=\"?pphase=01&p=" + password + "\" class=\"button\"><button class=\"homeButton\">Inicio</button></a>");
-    // out.println("<a href=\"?pphase=21&p=" + password + "\" class=\"button\"><button class=\"backButton\">Atr&aacute;s</button></a>");
-    // out.println("</section>");
-    // out.println("<footer>");
-    // out.println("<hr>");
-    // out.println("<p>&copy; Adri&aacute;n Alonso Vilar (2020-2021)</p>");
-    // out.println("</footer>");
-    // out.println("</body>");
-    // out.println("</html>");
   }
 
   //ERRORES
