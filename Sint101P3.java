@@ -12,6 +12,10 @@ import org.xml.sax.SAXException;
 import org.w3c.dom.*;
 import java.io.IOException;
 import java.nio.charset.*;
+//Practica 3
+import p3.AuxBean;
+import p3.BeanP11;
+
 
 public class Sint101P3 extends HttpServlet {
   final static String JAXP_SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
@@ -37,10 +41,14 @@ public class Sint101P3 extends HttpServlet {
   static ArrayList<ErrorFile> errorsFiles = new ArrayList<ErrorFile>();
   static ArrayList<FatalErrorFile> fatalErrorsFiles = new ArrayList<FatalErrorFile>();
 
+  //JAVABEANS
+  AuxBean ab;
+  BeanP11 bean11;
+  ServletContext servletcontext;
 
   public void init (ServletConfig config) throws ServletException {
     try {
-      ServletContext servletcontext= config.getServletContext();
+      servletcontext= config.getServletContext();
       xsd = new File(servletcontext.getRealPath(xsd_url));
 
       //Llamo al parser
@@ -115,7 +123,7 @@ public class Sint101P3 extends HttpServlet {
 
          case "11":
            ArrayList<String> degrees = getC1Degrees();
-           screen.phase11(req, res, pphase, degrees);
+           screen.phase11(req, res, pphase, degrees, bean11, servletcontext);
            break;
 
          case "12":
@@ -142,7 +150,18 @@ public class Sint101P3 extends HttpServlet {
         }
       }
     }
+
   }
+
+  protected void doPost (HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    Date fecha = new Date();
+    ab.setMsg(fecha.toString());
+    req.setAttribute("laBean", ab);
+    ServletContext sc = getServletContext();
+    RequestDispatcher rd = sc.getRequestDispatcher(sc.getRealPath("/p3/page11.jsp"));
+    rd.forward(req,res);
+  }
+
 
   public ArrayList<String> getC1Degrees() {
     ArrayList<String> docsList = new ArrayList<String>();
@@ -269,4 +288,5 @@ public class Sint101P3 extends HttpServlet {
     Collections.sort(studentsList);
     return studentsList;
   }
+
 }

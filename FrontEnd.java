@@ -15,6 +15,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerConfigurationException;
+import p3.BeanP11;
 
 public class FrontEnd {
 
@@ -207,16 +208,13 @@ public class FrontEnd {
 
   //FASE 11
   //Seleccion modo pantalla (auto/browser)
-  public void phase11 (HttpServletRequest request, HttpServletResponse response, String pphase, ArrayList<String> degrees) throws IOException, ServletException {
+  public void phase11 (HttpServletRequest request, HttpServletResponse response, String pphase, ArrayList<String> degrees, BeanP11 bean11, ServletContext servletcontext) throws IOException, ServletException {
     String auto = request.getParameter("auto");
 
-    //ArrayList<String> degrees = new ArrayList<String>();
-    //degrees.add("Teleco");
-    //degrees.add("Industriales");
     if(auto==null){
-      this.page11HTML(request, response, pphase, degrees);
+      this.page11JSP(request, response, pphase, degrees, bean11, servletcontext);
     } else if (!auto.equals("true")) {
-      this.page11HTML(request, response, pphase, degrees);
+      this.page11JSP(request, response, pphase, degrees, bean11, servletcontext);
     } else {
       this.page11XML(request, response, pphase, degrees);
     }
@@ -495,6 +493,97 @@ public class FrontEnd {
     } catch (Exception e) {
     }
   }
+
+  //JSP
+  //FASE01
+  public void page01JSP(HttpServletRequest request, HttpServletResponse response, String pphase, BeanP01 bean01, ServletContext sc) {
+    String password = request.getParameter("p");
+
+    try {
+      bean01 = new BeanP01();
+      bean01.setPphase(pphase);
+      bean01.setPassword(password);
+      request.setAttribute("bean01", bean01);
+      RequestDispatcher rd = sc.getRequestDispatcher("/p3/page01.jsp");
+      rd.forward(request,response);
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+
+  //FASE02
+  // public void page02JSP(HttpServletRequest request, HttpServletResponse response, String pphase, ArrayList<WarningFile> warningsFiles, ArrayList<ErrorFile> errorsFiles, ArrayList<FatalErrorFile> fatalErrorsFiles, BeanP02 bean02, ServletContext sc) {
+  //   String password = request.getParameter("p");
+  //
+  //   try {
+  //     bean02 = new BeanP02();
+  //     bean02.setArrayWarnings(warningsFiles);
+  //     bean02.setArrayErrors(errorsFiles);
+  //     bean02.setArrayFatalErrors(fatalErrorsFiles);
+  //     bean02.setPphase(pphase);
+  //     bean02.setPassword(password);
+  //     request.setAttribute("bean02", bean02);
+  //     RequestDispatcher rd = sc.getRequestDispatcher("/p3/page02.jsp");
+  //     rd.forward(request,response);
+  //   } catch (Exception e) {
+  //     System.out.println(e);
+  //   }
+  // }
+
+  //FASE11
+  public void page11JSP(HttpServletRequest request, HttpServletResponse response, String pphase, ArrayList<String> degrees, BeanP11 bean11, ServletContext sc) {
+    String password = request.getParameter("p");
+
+    try {
+      bean11 = new BeanP11();
+      bean11.setArrayDegrees(degrees);
+      bean11.setPphase(pphase);
+      bean11.setPassword(password);
+      request.setAttribute("bean11", bean11);
+      RequestDispatcher rd = sc.getRequestDispatcher("/p3/page11.jsp");
+      rd.forward(request,response);
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+
+  //FASE12
+  public void page12JSP(HttpServletRequest request, HttpServletResponse response, String pphase, String pdegree, ArrayList<Subject> subjects, BeanP12 bean12, ServletContext sc) {
+    String password = request.getParameter("p");
+
+    try {
+      bean12 = new BeanP12();
+      bean12.setArraySubjects(subjects);
+      bean12.setPphase(pphase);
+      bean12.setPdegree(pdegree);
+      bean12.setPassword(password);
+      request.setAttribute("bean12", bean12);
+      RequestDispatcher rd = sc.getRequestDispatcher("/p3/page12.jsp");
+      rd.forward(request,response);
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+
+  //FASE13
+  public void page13JSP(HttpServletRequest request, HttpServletResponse response, String pphase, String pdegree, String psubject, ArrayList<Student> students, BeanP13 bean13, ServletContext sc) {
+    String password = request.getParameter("p");
+
+    try {
+      bean13 = new BeanP13();
+      bean13.setArrayStudents(students);
+      bean13.setPphase(pphase);
+      bean13.setPdegree(pdegree);
+      bean13.setPsubject(psubject);
+      bean13.setPassword(password);
+      request.setAttribute("bean13", bean13);
+      RequestDispatcher rd = sc.getRequestDispatcher("/p3/page13.jsp");
+      rd.forward(request,response);
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+
 
   //ERRORES
 
