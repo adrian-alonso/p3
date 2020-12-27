@@ -24,10 +24,14 @@ public class Sint101P3 extends HttpServlet {
   //static String xml_url = "http://gssi.det.uvigo.es/users/agil/public_html/SINT/20-21/teleco.xml";
   static File xsd;
   static File xml;
+  static File xslt;
+  static File html_output;
   //Lista de documentos validos
   static HashMap<String, Document> docsMap = new HashMap<String, Document>();
   //Lista de documentos xml
   static HashMap<String, String> urlsMap = new HashMap<String, String>();
+  //Documento XSLT
+  static String xslt_url = "/p3/eaml-html.xslt";
   //Listas de warnings, errores y errores fatales
   static ArrayList<WarningFile> warningsFiles = new ArrayList<WarningFile>();
   static ArrayList<ErrorFile> errorsFiles = new ArrayList<ErrorFile>();
@@ -44,6 +48,10 @@ public class Sint101P3 extends HttpServlet {
       //docsMap = eamlParser.parser(xml_url, servletcontext.getRealPath(xsd_url), servletcontext);
       docsMap = eamlParser.parser(servletcontext.getRealPath(xml_url), servletcontext.getRealPath(xsd_url), servletcontext);
       urlsMap = eamlParser.getDegreesList();
+
+      //Obtenemos File del XSLT
+      xslt = new File(servletcontext.getRealPath(xslt_url));
+      html_output = new File(servletcontext.getRealPath("/p3/output.html"));
 
       //Obtengo avisos
       warningsFiles = eamlParser.getWarningsFiles();
@@ -125,7 +133,7 @@ public class Sint101P3 extends HttpServlet {
            break;
 
          case "22":
-           screen.phase22(req, res, pphase, pdegree, urlsMap);
+           screen.phase22(req, res, pphase, pdegree, urlsMap, xslt, html_output);
            break;
 
          default:

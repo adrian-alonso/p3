@@ -85,7 +85,6 @@ public class Parser {
       //Obtenemos el grado
       NodeList degreenode = doc.getElementsByTagName("Name");
       degree = ((Element)degreenode.item(0)).getTextContent();
-      System.out.println(degree);
       //Obtenemos los nodos eaml
       NodeList eamlnodes = (NodeList)xpath.evaluate(exp, doc, XPathConstants.NODESET);
 
@@ -104,9 +103,7 @@ public class Parser {
       }
 
     } catch(NullPointerException npe) {
-      System.out.println(npe);
     } catch (XPathExpressionException xpe_e) {
-      System.out.println(xpe_e);
     }
 
     //En caso de warnings
@@ -152,12 +149,10 @@ public class Parser {
     }
 
     //En caso de que el fichero este correcto
-    System.out.println(degree);
     if ((eaml_ErrorHandler.getWarning() == 0) && (eaml_ErrorHandler.getError() == 0) && (eaml_ErrorHandler.getFatalError() == 0)) {
       if ((degree != null) && (!(docsMap.containsKey(degree)))) {
         docsMap.put(degree,doc);
       }
-      System.out.println(degree + "; " + url);
       //Creamos lista con los nombres de las tituaciones y los enlaces a sus respectivos archvivos XML
       if ((degree != null) && (!(urlsMap.containsKey(degree)))) {
         urlsMap.put(degree,url);

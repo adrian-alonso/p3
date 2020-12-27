@@ -8,7 +8,13 @@ import java.util.ArrayList;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import org.w3c.dom.Document;
-
+//Practica 3
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerConfigurationException;
 
 public class FrontEnd {
 
@@ -464,38 +470,60 @@ public class FrontEnd {
   }
 
   //FASE 22 - PRACTICA 3 (XSLT)
-  public void phase22 (HttpServletRequest request, HttpServletResponse response, String pphase, String pdegree, HashMap<String, String> urlsMap) throws IOException, ServletException {
+  public void phase22 (HttpServletRequest request, HttpServletResponse response, String pphase, String pdegree, HashMap<String, String> urlsMap, File stylesheet, File html_output) throws IOException, ServletException {
     String password = request.getParameter("p");
     String url = urlsMap.get(pdegree);
 
     response.setContentType("text/html");
     PrintWriter out = response.getWriter();
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<title>P3EA</title>");
-    out.println("<link rel=\"stylesheet\" href=\"/sint101/p3/eaml.css\">");
-    out.println("<meta charset=\"UTF-8\">");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<header>");
-    out.println("<h1>Servicio de consulta de expedientes acad&eacute;micos</h1>");
-    out.println("</header>");
-    out.println("<section>");
-    out.println("<h2>Consulta 2: Fase 2 (Titulaci&oacute;n=" + pdegree + ")</h2>");
-    out.println("<p>Este es el resultado:</p>");
-    out.println("<p>Grado: " + pdegree + "; URL: " + url + "</p>");
-    out.println("</section>");
-    out.println("<section>");
-    out.println("<a href=\"?pphase=01&p=" + password + "\" class=\"button\"><button class=\"homeButton\">Inicio</button></a>");
-    out.println("<a href=\"?pphase=21&p=" + password + "\" class=\"button\"><button class=\"backButton\">Atr&aacute;s</button></a>");
-    out.println("</section>");
-    out.println("<footer>");
-    out.println("<hr>");
-    out.println("<p>&copy; Adri&aacute;n Alonso Vilar (2020-2021)</p>");
-    out.println("</footer>");
-    out.println("</body>");
-    out.println("</html>");
+
+    try {
+            File datafile = new File(url);
+
+            //Usamos un Transformer para el output
+            TransformerFactory tFactory = TransformerFactory.newInstance();
+            StreamSource stylesource = new StreamSource(stylesheet);
+            Transformer transformer = tFactory.newTransformer(stylesource);
+
+            //Creamos un StreamSource para el xml
+            StreamSource datasource = new StreamSource(datafile);
+
+            //Resultado del Transformer
+            StreamResult result = new StreamResult(out);
+            transformer.transform(datasource, result);
+
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+
+    // response.setContentType("text/html");
+    // PrintWriter out = response.getWriter();
+    // out.println("<!DOCTYPE html>");
+    // out.println("<html>");
+    // out.println("<head>");
+    // out.println("<title>P3EA</title>");
+    // out.println("<link rel=\"stylesheet\" href=\"/sint101/p3/eaml.css\">");
+    // out.println("<meta charset=\"UTF-8\">");
+    // out.println("</head>");
+    // out.println("<body>");
+    // out.println("<header>");
+    // out.println("<h1>Servicio de consulta de expedientes acad&eacute;micos</h1>");
+    // out.println("</header>");
+    // out.println("<section>");
+    // out.println("<h2>Consulta 2: Fase 2 (Titulaci&oacute;n=" + pdegree + ")</h2>");
+    // out.println("<p>Este es el resultado:</p>");
+    // out.println("<p>Grado: " + pdegree + "; URL: " + url + "</p>");
+    // out.println("</section>");
+    // out.println("<section>");
+    // out.println("<a href=\"?pphase=01&p=" + password + "\" class=\"button\"><button class=\"homeButton\">Inicio</button></a>");
+    // out.println("<a href=\"?pphase=21&p=" + password + "\" class=\"button\"><button class=\"backButton\">Atr&aacute;s</button></a>");
+    // out.println("</section>");
+    // out.println("<footer>");
+    // out.println("<hr>");
+    // out.println("<p>&copy; Adri&aacute;n Alonso Vilar (2020-2021)</p>");
+    // out.println("</footer>");
+    // out.println("</body>");
+    // out.println("</html>");
   }
 
   //ERRORES
