@@ -3,27 +3,26 @@ package p3;
 import java.util.ArrayList;
 import p3.Student;
 
-public class BeanP11 {
+public class BeanP13 {
 
-  String degrees_HTML;
-  String pphase;
-  String pdegree;
-  String psubject;
-  String password;
-  ArrayList<Student> students;
+  private String students_HTML;
+  private String pphase;
+  private String pdegree;
+  private String psubject;
+  private String password;
+  private ArrayList<Student> students;
 
   //CONSTRUCTOR
-  public BeanP11() {
-    this.degrees_HTML = "";
+  public BeanP13() {
+    this.students_HTML = "";
   }
 
   //GETTERS
-  public String getHTML_degrees() {
-
-    for (int i = 0; i < degrees.size(); i++) {
-      this.degrees_HTML += "<li><a href=\"?pphase=12&p=" + password + "&pdegree=" + degrees.get(i) + "\">" + degrees.get(i) + "</a></li>";
+  public String getHTML_students() {
+    for (int i = 0; i < students.size(); i++) {
+      this.students_HTML +="<li>" + students.get(i).toString() + "</li>";
     }
-    return this.degrees_HTML;
+    return this.students_HTML;
   }
 
   public String getPphase() {
@@ -43,8 +42,8 @@ public class BeanP11 {
   }
 
   //SETTERS
-  public void setArrayDegrees(ArrayList<String> degrees) {
-    this.degrees = degrees;
+  public void setArrayStudents(ArrayList<Student> students) {
+    this.students = students;
     return;
   }
 

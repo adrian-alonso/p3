@@ -17,7 +17,7 @@
       <h2>Consulta 1: Fase 2 (Titulaci&oacute;n=<%= jspBean12.getPdegree() %>)</h2>
       <p>Selecciona una asignatura:</p>
       <ol>
-        <%= jspBean12.getHTML_Subjects() %>
+        <%= jspBean12.getHTML_subjects() %>
       </ol>
     </section>
     <section>

@@ -15,7 +15,11 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerConfigurationException;
+import p3.BeanP01;
+import p3.BeanP02;
 import p3.BeanP11;
+import p3.BeanP12;
+import p3.BeanP13;
 
 public class FrontEnd {
 
@@ -25,13 +29,13 @@ public class FrontEnd {
 
   //FASE 01
   //Seleccion modo pantalla (auto/browser)
-  public void phase01 (HttpServletRequest request, HttpServletResponse response, String pphase) throws IOException, ServletException {
+  public void phase01 (HttpServletRequest request, HttpServletResponse response, String pphase, BeanP01 bean01, ServletContext sc) throws IOException, ServletException {
     String auto = request.getParameter("auto");
 
     if(auto==null){
-      this.page01HTML(request, response, pphase);
+      this.page01JSP(request, response, pphase, bean01, sc);
     } else if (!auto.equals("true")) {
-      this.page01HTML(request, response, pphase);
+      this.page01JSP(request, response, pphase, bean01, sc);
     } else {
       this.page01XML(request, response, pphase);
     }
@@ -89,13 +93,13 @@ public class FrontEnd {
 
   //FASE 02
   //Seleccion modo pantalla (auto/browser)
-  public void phase02 (HttpServletRequest request, HttpServletResponse response, String pphase, ArrayList<WarningFile> warningsFiles, ArrayList<ErrorFile> errorsFiles, ArrayList<FatalErrorFile> fatalErrorsFiles) throws IOException, ServletException {
+  public void phase02 (HttpServletRequest request, HttpServletResponse response, String pphase, ArrayList<WarningFile> warningsFiles, ArrayList<ErrorFile> errorsFiles, ArrayList<FatalErrorFile> fatalErrorsFiles, BeanP02 bean02, ServletContext sc) throws IOException, ServletException {
     String auto = request.getParameter("auto");
 
     if(auto==null){
-      this.page02HTML(request, response, pphase, warningsFiles, errorsFiles, fatalErrorsFiles);
+      this.page02JSP(request, response, pphase, warningsFiles, errorsFiles, fatalErrorsFiles, bean02, sc);
     } else if (!auto.equals("true")) {
-      this.page02HTML(request, response, pphase, warningsFiles, errorsFiles, fatalErrorsFiles);
+      this.page02JSP(request, response, pphase, warningsFiles, errorsFiles, fatalErrorsFiles, bean02, sc);
     } else {
       this.page02XML(request, response, pphase, warningsFiles, errorsFiles, fatalErrorsFiles);
     }
@@ -271,7 +275,7 @@ public class FrontEnd {
 
   //FASE 12
   //Seleccion modo pantalla (auto/browser)
-  public void phase12 (HttpServletRequest request, HttpServletResponse response, String pphase, String pdegree, ArrayList<Subject> subjects) throws IOException, ServletException {
+  public void phase12 (HttpServletRequest request, HttpServletResponse response, String pphase, String pdegree, ArrayList<Subject> subjects, BeanP12 bean12, ServletContext sc) throws IOException, ServletException {
     String auto = request.getParameter("auto");
 
     if (pdegree == null) {
@@ -284,9 +288,9 @@ public class FrontEnd {
       }
     } else {
       if(auto==null){
-        this.page12HTML(request, response, pphase, pdegree, subjects);
+        this.page12JSP(request, response, pphase, pdegree, subjects, bean12, sc);
       } else if (!auto.equals("true")) {
-        this.page12HTML(request, response, pphase, pdegree, subjects);
+        this.page12JSP(request, response, pphase, pdegree, subjects, bean12, sc);
       } else {
         this.page12XML(request, response, pphase, pdegree, subjects);
       }
@@ -349,7 +353,7 @@ public class FrontEnd {
 
   //FASE 13
   //Seleccion modo pantalla (auto/browser)
-  public void phase13 (HttpServletRequest request, HttpServletResponse response, String pphase, String pdegree, String psubject, ArrayList<Student> students) throws IOException, ServletException {
+  public void phase13 (HttpServletRequest request, HttpServletResponse response, String pphase, String pdegree, String psubject, ArrayList<Student> students, BeanP13 bean13, ServletContext sc) throws IOException, ServletException {
     String auto = request.getParameter("auto");
     if (pdegree == null) {
       if(auto==null){
@@ -370,9 +374,9 @@ public class FrontEnd {
         }
       } else {
         if(auto==null){
-          this.page13HTML(request, response, pphase, pdegree, psubject, students);
+          this.page13JSP(request, response, pphase, pdegree, psubject, students, bean13, sc);
         } else if (!auto.equals("true")) {
-          this.page13HTML(request, response, pphase, pdegree, psubject, students);
+          this.page13JSP(request, response, pphase, pdegree, psubject, students, bean13, sc);
         } else {
           this.page13XML(request, response, pphase, pdegree, psubject, students);
         }
@@ -512,23 +516,23 @@ public class FrontEnd {
   }
 
   //FASE02
-  // public void page02JSP(HttpServletRequest request, HttpServletResponse response, String pphase, ArrayList<WarningFile> warningsFiles, ArrayList<ErrorFile> errorsFiles, ArrayList<FatalErrorFile> fatalErrorsFiles, BeanP02 bean02, ServletContext sc) {
-  //   String password = request.getParameter("p");
-  //
-  //   try {
-  //     bean02 = new BeanP02();
-  //     bean02.setArrayWarnings(warningsFiles);
-  //     bean02.setArrayErrors(errorsFiles);
-  //     bean02.setArrayFatalErrors(fatalErrorsFiles);
-  //     bean02.setPphase(pphase);
-  //     bean02.setPassword(password);
-  //     request.setAttribute("bean02", bean02);
-  //     RequestDispatcher rd = sc.getRequestDispatcher("/p3/page02.jsp");
-  //     rd.forward(request,response);
-  //   } catch (Exception e) {
-  //     System.out.println(e);
-  //   }
-  // }
+  public void page02JSP(HttpServletRequest request, HttpServletResponse response, String pphase, ArrayList<WarningFile> warningsFiles, ArrayList<ErrorFile> errorsFiles, ArrayList<FatalErrorFile> fatalErrorsFiles, BeanP02 bean02, ServletContext sc) {
+    String password = request.getParameter("p");
+
+    try {
+      bean02 = new BeanP02();
+      bean02.setArrayWarnings(warningsFiles);
+      bean02.setArrayErrors(errorsFiles);
+      bean02.setArrayFatalErrors(fatalErrorsFiles);
+      bean02.setPphase(pphase);
+      bean02.setPassword(password);
+      request.setAttribute("bean02", bean02);
+      RequestDispatcher rd = sc.getRequestDispatcher("/p3/page02.jsp");
+      rd.forward(request,response);
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 
   //FASE11
   public void page11JSP(HttpServletRequest request, HttpServletResponse response, String pphase, ArrayList<String> degrees, BeanP11 bean11, ServletContext sc) {

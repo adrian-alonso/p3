@@ -13,8 +13,11 @@ import org.w3c.dom.*;
 import java.io.IOException;
 import java.nio.charset.*;
 //Practica 3
-import p3.AuxBean;
+import p3.BeanP01;
+import p3.BeanP02;
 import p3.BeanP11;
+import p3.BeanP12;
+import p3.BeanP13;
 
 
 public class Sint101P3 extends HttpServlet {
@@ -42,8 +45,11 @@ public class Sint101P3 extends HttpServlet {
   static ArrayList<FatalErrorFile> fatalErrorsFiles = new ArrayList<FatalErrorFile>();
 
   //JAVABEANS
-  AuxBean ab;
+  BeanP01 bean01;
+  BeanP02 bean02;
   BeanP11 bean11;
+  BeanP12 bean12;
+  BeanP13 bean13;
   ServletContext servletcontext;
 
   public void init (ServletConfig config) throws ServletException {
@@ -110,15 +116,15 @@ public class Sint101P3 extends HttpServlet {
     } else {
 
       if (pphase == null) {
-        screen.phase01(req, res, pphase);
+        screen.phase01(req, res, pphase, bean01, servletcontext);
       } else {
         switch (pphase.trim()) {
           case "01":
-            screen.phase01(req, res, pphase);
+            screen.phase01(req, res, pphase, bean01, servletcontext);
             break;
 
          case "02":
-           screen.phase02(req, res, pphase, warningsFiles, errorsFiles, fatalErrorsFiles);
+           screen.phase02(req, res, pphase, warningsFiles, errorsFiles, fatalErrorsFiles, bean02, servletcontext);
            break;
 
          case "11":
@@ -128,12 +134,12 @@ public class Sint101P3 extends HttpServlet {
 
          case "12":
            ArrayList<Subject> subjects = getC1Subjects(pdegree);
-           screen.phase12(req, res, pphase, pdegree, subjects);
+           screen.phase12(req, res, pphase, pdegree, subjects, bean12, servletcontext);
            break;
 
          case "13":
            ArrayList<Student> students = getC1Students(pdegree, psubject);
-           screen.phase13(req, res, pphase, pdegree, psubject, students);
+           screen.phase13(req, res, pphase, pdegree, psubject, students, bean13, servletcontext);
            break;
 
          case "21":
@@ -145,7 +151,7 @@ public class Sint101P3 extends HttpServlet {
            break;
 
          default:
-           screen.phase01(req, res, pphase);
+           screen.phase01(req, res, pphase, bean01, servletcontext);
            break;
         }
       }
@@ -153,14 +159,14 @@ public class Sint101P3 extends HttpServlet {
 
   }
 
-  protected void doPost (HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-    Date fecha = new Date();
-    ab.setMsg(fecha.toString());
-    req.setAttribute("laBean", ab);
-    ServletContext sc = getServletContext();
-    RequestDispatcher rd = sc.getRequestDispatcher(sc.getRealPath("/p3/page11.jsp"));
-    rd.forward(req,res);
-  }
+  // protected void doPost (HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+  //   Date fecha = new Date();
+  //   ab.setMsg(fecha.toString());
+  //   req.setAttribute("laBean", ab);
+  //   ServletContext sc = getServletContext();
+  //   RequestDispatcher rd = sc.getRequestDispatcher(sc.getRealPath("/p3/page11.jsp"));
+  //   rd.forward(req,res);
+  // }
 
 
   public ArrayList<String> getC1Degrees() {

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class BeanP11 {
 
-  String degrees_HTML;
-  String pphase;
-  String password;
-  ArrayList<String> degrees;
+  private String degrees_HTML;
+  private String pphase;
+  private String password;
+  private ArrayList<String> degrees;
 
   //CONSTRUCTOR
   public BeanP11() {

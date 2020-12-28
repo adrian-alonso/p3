@@ -2,8 +2,8 @@ package p3;
 
 public class BeanP01 {
 
-  String pphase;
-  String password;
+  private String pphase;
+  private String password;
 
   //CONSTRUCTOR
   public BeanP01() {

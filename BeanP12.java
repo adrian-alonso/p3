@@ -3,35 +3,31 @@ package p3;
 import java.util.ArrayList;
 import p3.Subject;
 
-public class BeanP11 {
+public class BeanP12 {
 
-  String subjects_HTML;
-  String pphase;
-  String pdegree;
-  String password;
-  ArrayList<Subject> subjects;
+  private String subjects_HTML;
+  private String pphase;
+  private String pdegree;
+  private String password;
+  private ArrayList<Subject> subjects;
 
   //CONSTRUCTOR
-  public BeanP11() {
+  public BeanP12() {
     this.subjects_HTML = "";
   }
 
   //GETTERS
-  public String getHTML_Subjects() {
-    String imprimir1;
-    String imprimir2;
-    String imprimir3;
+  public String getHTML_subjects() {
+    String print1;
+    String print2;
+    String print3;
     for (int i = 0; i < subjects.size(); i++) {
-      imprimir1 = "Asignatura = \'" + subjects.get(i).getSubjectName() + "\'";
-      imprimir2 = "href=\"?pphase=13&p=" + password + "&pdegree=" + pdegree + "&psubject=" + subjects.get(i).getSubjectName() + "\"";
-      imprimir3 = "<a " + imprimir2 + ">" + imprimir1 + "</a>";
-      this.subjects_HTML += "<li>" imprimir3 " " + subjects.get(i).toString() + "</li>\n";
+      print1 = "Asignatura = \'" + subjects.get(i).getSubjectName() + "\'";
+      print2 = "href=\"?pphase=13&p=" + password + "&pdegree=" + pdegree + "&psubject=" + subjects.get(i).getSubjectName() + "\"";
+      print3 = "<a " + print2 + ">" + print1 + "</a>";
+      this.subjects_HTML += "<li>" + print3 + " " + subjects.get(i).toString() + "</li>\n";
     }
-
-    for (int i = 0; i < degrees.size(); i++) {
-      this.degrees_HTML += "<li><a href=\"?pphase=12&p=" + password + "&pdegree=" + degrees.get(i) + "\">" + degrees.get(i) + "</a></li>";
-    }
-    return this.degrees_HTML;
+    return this.subjects_HTML;
   }
 
   public String getPphase() {
