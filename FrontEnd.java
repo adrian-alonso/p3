@@ -2,6 +2,7 @@ package p3;
 
 import java.io.*;
 import java.nio.charset.*;
+import java.net.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.util.ArrayList;
@@ -158,7 +159,7 @@ public class FrontEnd {
   }
 
   //FASE 22 - XSLT
-  public void phase22 (HttpServletRequest request, HttpServletResponse response, String pphase, String pdegree, HashMap<String, String> urlsMap, File stylesheet, File html_output) throws IOException, ServletException {
+  public void phase22 (HttpServletRequest request, HttpServletResponse response, String pphase, String pdegree, HashMap<String, String> urlsMap, File stylesheet) throws IOException, ServletException {
     String password = request.getParameter("p");
     String url = urlsMap.get(pdegree);
 
@@ -166,7 +167,7 @@ public class FrontEnd {
     PrintWriter out = response.getWriter();
 
     try {
-            File datafile = new File(url);
+            // File datafile = new File(url); //LOCAL
 
             //Usamos un Transformer para el output
             TransformerFactory tFactory = TransformerFactory.newInstance();
@@ -174,13 +175,14 @@ public class FrontEnd {
             Transformer transformer = tFactory.newTransformer(stylesource);
 
             //Creamos un StreamSource para el xml
-            StreamSource datasource = new StreamSource(datafile);
+            StreamSource datasource = new StreamSource(url);
 
             //Resultado del Transformer
             StreamResult result = new StreamResult(out);
             transformer.transform(datasource, result);
 
     } catch (Exception e) {
+      System.out.println(e);
     }
   }
 

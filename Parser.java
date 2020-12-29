@@ -92,14 +92,14 @@ public class Parser {
       for (int i = 0; i < eamlnodes.getLength(); i++) {
         String nextFile_url = ((Element)eamlnodes.item(i)).getTextContent();
         nextFile = nextFile_url;
-        // if (!filesList.contains("http://gssi.det.uvigo.es/users/agil/public_html/SINT/20-21/" + nextFile) && !nextFile.equals("")) {
-        //     filesList.add("http://gssi.det.uvigo.es/users/agil/public_html/SINT/20-21/" + nextFile);
-        //     moreFiles = true;
-        // }
-        if (!filesList.contains(servletcontext.getRealPath("/p3/20-21_EAML/" + nextFile)) && !nextFile.equals("")) {
-            filesList.add(servletcontext.getRealPath("/p3/20-21_EAML/" + nextFile));
+        if (!filesList.contains("http://gssi.det.uvigo.es/users/agil/public_html/SINT/20-21/" + nextFile) && !nextFile.equals("")) {
+            filesList.add("http://gssi.det.uvigo.es/users/agil/public_html/SINT/20-21/" + nextFile);
             moreFiles = true;
         }
+        // if (!filesList.contains(servletcontext.getRealPath("/p3/20-21_EAML/" + nextFile)) && !nextFile.equals("")) {
+        //     filesList.add(servletcontext.getRealPath("/p3/20-21_EAML/" + nextFile));
+        //     moreFiles = true;
+        // }
       }
 
     } catch(NullPointerException npe) {
@@ -157,13 +157,6 @@ public class Parser {
       if ((degree != null) && (!(urlsMap.containsKey(degree)))) {
         urlsMap.put(degree,url);
       }
-
-      // if (!degreesList.contains(degree)) {
-      //   degreesList.add(degree);
-      // }
-      // if (!okdregreesURL.contains(url)) {
-      //   okdregreesURL.add(url);
-      // }
     }
 
     return moreFiles;

@@ -35,7 +35,6 @@ public class Sint101P3 extends HttpServlet {
   static File xsd;
   static File xml;
   static File xslt;
-  static File html_output;
   //Lista de documentos validos
   static HashMap<String, Document> docsMap = new HashMap<String, Document>();
   //Lista de documentos xml
@@ -71,7 +70,6 @@ public class Sint101P3 extends HttpServlet {
 
       //Obtenemos File del XSLT
       xslt = new File(servletcontext.getRealPath(xslt_url));
-      html_output = new File(servletcontext.getRealPath("/p3/output.html"));
 
       //Obtengo avisos
       warningsFiles = eamlParser.getWarningsFiles();
@@ -152,7 +150,7 @@ public class Sint101P3 extends HttpServlet {
            break;
 
          case "22":
-           screen.phase22(req, res, pphase, pdegree, urlsMap, xslt, html_output);
+           screen.phase22(req, res, pphase, pdegree, urlsMap, xslt);
            break;
 
          default:

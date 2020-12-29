@@ -6,7 +6,7 @@
     <html>
       <head>
         <title>P3EA</title>
-        <link rel="stylesheet" href="/sint101/p3/eaml.css"/>
+        <link rel="stylesheet" href="/p3/eaml.css"/>
         <meta charset="UTF-8"/>
       </head>
       <body>
