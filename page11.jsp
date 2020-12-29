@@ -16,12 +16,11 @@
     <h2>Consulta 1: Fase 1</h2>
     <p>Selecciona:</p>
     <ol>
-      <% BeanP11 jspBean11 = (BeanP11)request.getAttribute("bean11"); %>
-      <%= jspBean11.getHTML_degrees() %>
+      <jsp:getProperty name="bean11" property="degrees_HTML"/>
     </ol>
     </section>
     <section>
-      <a href="?pphase=01&p=<%= jspBean11.getPassword() %>" class="button"><button class="homeButton">Inicio</button></a>
+      <a href="?pphase=01&p=${bean11.password}" class="button"><button class="homeButton">Inicio</button></a>
     </section>
     <footer>
       <hr>

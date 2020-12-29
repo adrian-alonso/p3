@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class BeanP11 {
 
-  private String degrees_HTML;
   private String pphase;
   private String password;
   private ArrayList<String> degrees;
+  private String degrees_HTML;
 
   //CONSTRUCTOR
   public BeanP11() {
@@ -15,14 +15,6 @@ public class BeanP11 {
   }
 
   //GETTERS
-  public String getHTML_degrees() {
-
-    for (int i = 0; i < degrees.size(); i++) {
-      this.degrees_HTML += "<li><a href=\"?pphase=12&p=" + password + "&pdegree=" + degrees.get(i) + "\">" + degrees.get(i) + "</a></li>";
-    }
-    return this.degrees_HTML;
-  }
-
   public String getPphase() {
     return this.pphase;
   }
@@ -31,19 +23,34 @@ public class BeanP11 {
     return this.password;
   }
 
-  //SETTERS
-  public void setArrayDegrees(ArrayList<String> degrees) {
-    this.degrees = degrees;
-    return;
+  public ArrayList<String> getDegrees() {
+    return this.degrees;
   }
 
+  public String getDegrees_HTML() {
+    return this.degrees_HTML;
+  }
+
+  //SETTERS
   public void setPphase(String pphase) {
     this.pphase = pphase;
     return;
   }
 
-  public void setPassword(String passwd) {
-    this.password = passwd;
+  public void setPassword(String password) {
+    this.password = password;
+    return;
+  }
+
+  public void setDegrees(ArrayList<String> degrees) {
+    this.degrees = degrees;
+    return;
+  }
+
+  public void setDegrees_HTML() {
+    for (int i = 0; i < degrees.size(); i++) {
+      this.degrees_HTML += "<li><a href=\"?pphase=12&p=" + password + "&pdegree=" + degrees.get(i) + "\">" + degrees.get(i) + "</a></li>";
+    }
     return;
   }
 

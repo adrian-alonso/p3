@@ -18,6 +18,9 @@ import p3.BeanP02;
 import p3.BeanP11;
 import p3.BeanP12;
 import p3.BeanP13;
+import p3.BeanNoPassword;
+import p3.BeanBadPassword;
+import p3.BeanNoParam;
 
 
 public class Sint101P3 extends HttpServlet {
@@ -27,8 +30,8 @@ public class Sint101P3 extends HttpServlet {
 
   final static String xsd_url = "/p3/eaml.xsd";
   //static String xml_url = "/opt/tomcat/webapps/sint101/p3/20-21_EAML/teleco.xml";
-  static String xml_url = "/p3/20-21_EAML/teleco.xml";
-  //static String xml_url = "http://gssi.det.uvigo.es/users/agil/public_html/SINT/20-21/teleco.xml";
+  //static String xml_url = "/p3/20-21_EAML/teleco.xml";
+  static String xml_url = "http://gssi.det.uvigo.es/users/agil/public_html/SINT/20-21/teleco.xml";
   static File xsd;
   static File xml;
   static File xslt;
@@ -50,6 +53,9 @@ public class Sint101P3 extends HttpServlet {
   BeanP11 bean11;
   BeanP12 bean12;
   BeanP13 bean13;
+  BeanNoPassword beanNoPass;
+  BeanBadPassword beanBadPass;
+  BeanNoParam beanNoParam;
   ServletContext servletcontext;
 
   public void init (ServletConfig config) throws ServletException {
@@ -59,8 +65,8 @@ public class Sint101P3 extends HttpServlet {
 
       //Llamo al parser
       Parser eamlParser = new Parser();
-      //docsMap = eamlParser.parser(xml_url, servletcontext.getRealPath(xsd_url), servletcontext);
-      docsMap = eamlParser.parser(servletcontext.getRealPath(xml_url), servletcontext.getRealPath(xsd_url), servletcontext);
+      docsMap = eamlParser.parser(xml_url, servletcontext.getRealPath(xsd_url), servletcontext);
+      //docsMap = eamlParser.parser(servletcontext.getRealPath(xml_url), servletcontext.getRealPath(xsd_url), servletcontext);
       urlsMap = eamlParser.getDegreesList();
 
       //Obtenemos File del XSLT
@@ -88,7 +94,6 @@ public class Sint101P3 extends HttpServlet {
     String pdegree = req.getParameter("pdegree");
     String psubject = req.getParameter("psubject");
     String password = req.getParameter("p");
-    String auto = req.getParameter("auto");
 
     req.setCharacterEncoding("UTF-8");
     res.setCharacterEncoding("UTF-8");
@@ -98,48 +103,48 @@ public class Sint101P3 extends HttpServlet {
     //Comprobamos si hay contraseña y si es correcta
     //En caso afirmativo seleccionamos la fase a la que se quiera acceder
     if (password == null) {
-      if(auto==null){
-        screen.noPasswordHTML(req, res);
-      } else if (!auto.equals("true")) {
-        screen.noPasswordHTML(req, res);
-      } else {
-        screen.noPasswordXML(req, res);
-      }
+      screen.noPasswordJSP(req, res, beanNoPass, servletcontext);
     } else if (!password.equals("Aadri4n999")) {
-      if(auto==null){
-        screen.badPasswordHTML(req, res);
-      } else if (!auto.equals("true")) {
-        screen.badPasswordHTML(req, res);
-      } else {
-        screen.badPasswordXML(req, res);
-      }
+      screen.badPasswordJSP(req, res, beanBadPass, servletcontext);
     } else {
 
       if (pphase == null) {
-        screen.phase01(req, res, pphase, bean01, servletcontext);
+        screen.page01JSP(req, res, pphase, bean01, servletcontext);
       } else {
         switch (pphase.trim()) {
           case "01":
-            screen.phase01(req, res, pphase, bean01, servletcontext);
+            screen.page01JSP(req, res, pphase, bean01, servletcontext);
             break;
 
          case "02":
-           screen.phase02(req, res, pphase, warningsFiles, errorsFiles, fatalErrorsFiles, bean02, servletcontext);
+           screen.page02JSP(req, res, pphase, warningsFiles, errorsFiles, fatalErrorsFiles, bean02, servletcontext);
            break;
 
          case "11":
            ArrayList<String> degrees = getC1Degrees();
-           screen.phase11(req, res, pphase, degrees, bean11, servletcontext);
+           screen.page11JSP(req, res, pphase, degrees, bean11, servletcontext);
            break;
 
          case "12":
            ArrayList<Subject> subjects = getC1Subjects(pdegree);
-           screen.phase12(req, res, pphase, pdegree, subjects, bean12, servletcontext);
+           if (pdegree == null) {
+             screen.noParamJSP(req, res, "pdegree", beanNoParam, servletcontext);
+           } else {
+             screen.page12JSP(req, res, pphase, pdegree, subjects, bean12, servletcontext);
+           }
            break;
 
          case "13":
            ArrayList<Student> students = getC1Students(pdegree, psubject);
-           screen.phase13(req, res, pphase, pdegree, psubject, students, bean13, servletcontext);
+           if (pdegree == null) {
+             screen.noParamJSP(req, res, "pdegree", beanNoParam, servletcontext);
+           } else {
+             if (psubject == null){
+               screen.noParamJSP(req, res, "psubject", beanNoParam, servletcontext);
+             } else {
+               screen.page13JSP(req, res, pphase, pdegree, psubject, students, bean13, servletcontext);
+             }
+           }
            break;
 
          case "21":
@@ -151,22 +156,13 @@ public class Sint101P3 extends HttpServlet {
            break;
 
          default:
-           screen.phase01(req, res, pphase, bean01, servletcontext);
+           screen.page01JSP(req, res, pphase, bean01, servletcontext);
            break;
         }
       }
     }
 
   }
-
-  // protected void doPost (HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-  //   Date fecha = new Date();
-  //   ab.setMsg(fecha.toString());
-  //   req.setAttribute("laBean", ab);
-  //   ServletContext sc = getServletContext();
-  //   RequestDispatcher rd = sc.getRequestDispatcher(sc.getRealPath("/p3/page11.jsp"));
-  //   rd.forward(req,res);
-  // }
 
 
   public ArrayList<String> getC1Degrees() {

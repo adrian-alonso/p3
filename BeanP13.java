@@ -5,12 +5,12 @@ import p3.Student;
 
 public class BeanP13 {
 
-  private String students_HTML;
   private String pphase;
   private String pdegree;
   private String psubject;
   private String password;
   private ArrayList<Student> students;
+  private String students_HTML;
 
   //CONSTRUCTOR
   public BeanP13() {
@@ -18,13 +18,6 @@ public class BeanP13 {
   }
 
   //GETTERS
-  public String getHTML_students() {
-    for (int i = 0; i < students.size(); i++) {
-      this.students_HTML +="<li>" + students.get(i).toString() + "</li>";
-    }
-    return this.students_HTML;
-  }
-
   public String getPphase() {
     return this.pphase;
   }
@@ -41,12 +34,15 @@ public class BeanP13 {
     return this.password;
   }
 
-  //SETTERS
-  public void setArrayStudents(ArrayList<Student> students) {
-    this.students = students;
-    return;
+  public ArrayList<Student> getStudents() {
+    return this.students;
   }
 
+  public String getStudents_HTML() {
+    return this.students_HTML;
+  }
+
+  //SETTERS
   public void setPphase(String pphase) {
     this.pphase = pphase;
     return;
@@ -64,6 +60,18 @@ public class BeanP13 {
 
   public void setPassword(String passwd) {
     this.password = passwd;
+    return;
+  }
+
+  public void setStudents(ArrayList<Student> students) {
+    this.students = students;
+    return;
+  }
+
+  public void setStudents_HTML() {
+    for (int i = 0; i < students.size(); i++) {
+      this.students_HTML +="<li>" + students.get(i).toString() + "</li>";
+    }
     return;
   }
 

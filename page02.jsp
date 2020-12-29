@@ -15,20 +15,20 @@
       <h1>Servicio de consulta de expedientes acad&eacute;micos</h1>
     </header>
     <section>
-      <h2>Se han encontrado <%= jspBean02.getArrayWarnings().size() %> ficheros con warnings:</h2>
+      <h2>Se han encontrado <%= jspBean02.getWarnings().size() %> ficheros con warnings:</h2>
       <ul>
-        <%= jspBean02.getHTML_warnigs() %>
+        <jsp:getProperty name="bean02" property="warnings_HTML"/>
       </ul>
-      <h2>Se han encontrado <%= jspBean02.getArrayErrors().size() %> ficheros con errores:</h2>
+      <h2>Se han encontrado <%= jspBean02.getErrors().size() %> ficheros con errores:</h2>
       <ul>
-        <%= jspBean02.getHTML_errors() %>
+        <jsp:getProperty name="bean02" property="errors_HTML"/>
       </ul>
-      <h2>Se han encontrado <%= jspBean02.getArrayFatalErrors().size() %> ficheros con errores fatales:</h2>
+      <h2>Se han encontrado <%= jspBean02.getFatalErrors().size() %> ficheros con errores fatales:</h2>
       <ul>
-        <%= jspBean02.getHTML_fatalErrors() %>
+        <jsp:getProperty name="bean02" property="fatalErrors_HTML"/>
       </ul>
     <section>
-      <a href="?pphase=01&p=<%= jspBean02.getPassword() %>" class="button"><button class="backButton">Atr&aacute;s</button></a>
+      <a href="?pphase=01&p=${bean02.password}" class="button"><button class="backButton">Atr&aacute;s</button></a>
     </section>
     <footer>
       <hr>

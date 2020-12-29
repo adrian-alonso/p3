@@ -9,9 +9,9 @@ public class BeanP02 {
 
   private String pphase;
   private String password;
-  private ArrayList<WarningFile> warningsFiles;
-  private ArrayList<ErrorFile> errorsFiles;
-  private ArrayList<FatalErrorFile> fatalErrorsFiles;
+  private ArrayList<WarningFile> warnings;
+  private ArrayList<ErrorFile> errors;
+  private ArrayList<FatalErrorFile> fatalErrors;
   private String warnings_HTML;
   private String errors_HTML;
   private String fatalErrors_HTML;
@@ -32,45 +32,27 @@ public class BeanP02 {
     return this.password;
   }
 
-  public ArrayList<WarningFile> getArrayWarnings() {
-    return this.warningsFiles;
+  public ArrayList<WarningFile> getWarnings() {
+    return this.warnings;
   }
 
-  public ArrayList<ErrorFile> getArrayErrors() {
-    return this.errorsFiles;
+  public ArrayList<ErrorFile> getErrors() {
+    return this.errors;
   }
 
-  public ArrayList<FatalErrorFile> getArrayFatalErrors() {
-    return this.fatalErrorsFiles;
+  public ArrayList<FatalErrorFile> getFatalErrors() {
+    return this.fatalErrors;
   }
 
-  public String getHTML_warnigs() {
-    for (int i = 0; i < warningsFiles.size(); i++){
-      this.warnings_HTML += "<li type=\"disc\">" + warningsFiles.get(i).getWarningID() + "</li>";
-      for (int j = 0; j < warningsFiles.get(i).getWarnings().size(); j++){
-        this.warnings_HTML += "<ol><li type=\"circle\">" + warningsFiles.get(i).getWarnings().get(j) + "</li></ol>";
-      }
-    }
+  public String getWarnings_HTML() {
     return this.warnings_HTML;
   }
 
-  public String getHTML_errors() {
-    for (int i = 0; i < errorsFiles.size(); i++){
-      this.errors_HTML += "<li type=\"disc\">" + errorsFiles.get(i).getErrorID() + "</li>";
-      for (int j = 0; j < errorsFiles.get(i).getErrors().size(); j++){
-        this.errors_HTML += "<ol><li type=\"circle\">" + errorsFiles.get(i).getErrors().get(j) + "</li></ol>";
-      }
-    }
+  public String getErrors_HTML() {
     return this.errors_HTML;
   }
 
-  public String getHTML_fatalErrors() {
-    for (int i = 0; i < fatalErrorsFiles.size(); i++){
-      this.fatalErrors_HTML += "<li type=\"disc\">" + fatalErrorsFiles.get(i).getFatalErrorID() + "</li>";
-      for (int j = 0; j < fatalErrorsFiles.get(i).getFatalErrors().size(); j++){
-        this.fatalErrors_HTML += "<ol><li type=\"circle\">" + fatalErrorsFiles.get(i).getFatalErrors().get(j) + "</li></ol>";
-      }
-    }
+  public String getFatalErrors_HTML() {
     return this.fatalErrors_HTML;
   }
 
@@ -85,18 +67,48 @@ public class BeanP02 {
     return;
   }
 
-  public void setArrayWarnings(ArrayList<WarningFile> warnings) {
-    this.warningsFiles = warnings;
+  public void setWarnings(ArrayList<WarningFile> warnings) {
+    this.warnings = warnings;
     return;
   }
 
-  public void setArrayErrors(ArrayList<ErrorFile> errors) {
-    this.errorsFiles = errors;
+  public void setErrors(ArrayList<ErrorFile> errors) {
+    this.errors = errors;
     return;
   }
 
-  public void setArrayFatalErrors(ArrayList<FatalErrorFile> fatalErrors) {
-    this.fatalErrorsFiles = fatalErrors;
+  public void setFatalErrors(ArrayList<FatalErrorFile> fatalErrors) {
+    this.fatalErrors = fatalErrors;
+    return;
+  }
+
+  public void setWarnings_HTML() {
+    for (int i = 0; i < warnings.size(); i++){
+      this.warnings_HTML += "<li type=\"disc\">" + warnings.get(i).getWarningID() + "</li>";
+      for (int j = 0; j < warnings.get(i).getWarnings().size(); j++){
+        this.warnings_HTML += "<ol><li type=\"circle\">" + warnings.get(i).getWarnings().get(j) + "</li></ol>";
+      }
+    }
+    return;
+  }
+
+  public void setErrors_HTML() {
+    for (int i = 0; i < errors.size(); i++){
+      this.errors_HTML += "<li type=\"disc\">" + errors.get(i).getErrorID() + "</li>";
+      for (int j = 0; j < errors.get(i).getErrors().size(); j++){
+        this.errors_HTML += "<ol><li type=\"circle\">" + errors.get(i).getErrors().get(j) + "</li></ol>";
+      }
+    }
+    return;
+  }
+
+  public void setFatalErrors_HTML() {
+    for (int i = 0; i < fatalErrors.size(); i++){
+      this.fatalErrors_HTML += "<li type=\"disc\">" + fatalErrors.get(i).getFatalErrorID() + "</li>";
+      for (int j = 0; j < fatalErrors.get(i).getFatalErrors().size(); j++){
+        this.fatalErrors_HTML += "<ol><li type=\"circle\">" + fatalErrors.get(i).getFatalErrors().get(j) + "</li></ol>";
+      }
+    }
     return;
   }
 

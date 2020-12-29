@@ -11,7 +11,7 @@ JFLAGS = -classpath /opt/tomcat/lib/servlet-api.jar
 # (the default one in this case)
 #
 default:
-	$(JCC) $(JFLAGS) Sint101P3.java Parser.java EAML_ErrorHandler.java FrontEnd.java Degree.java Subject.java Student.java WarningFile.java ErrorFile.java FatalErrorFile.java BeanP01.java BeanP02.java BeanP11.java BeanP12.java BeanP13.java
+	$(JCC) $(JFLAGS) Degree.java Subject.java Student.java WarningFile.java ErrorFile.java FatalErrorFile.java BeanP01.java BeanP02.java BeanP11.java BeanP12.java BeanP13.java BeanBadPassword.java BeanNoParam.java BeanNoPassword.java EAML_ErrorHandler.java Parser.java FrontEnd.java Sint101P3.java
 
 
 # To start over from scratch, type 'make clean'.
