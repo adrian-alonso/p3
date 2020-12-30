@@ -58,9 +58,6 @@ public class FrontEnd {
       bean02.setFatalErrors(fatalErrorsFiles);
       bean02.setPphase(pphase);
       bean02.setPassword(password);
-      bean02.setWarnings_HTML();
-      bean02.setErrors_HTML();
-      bean02.setFatalErrors_HTML();
       request.setAttribute("bean02", bean02);
       RequestDispatcher rd = sc.getRequestDispatcher("/p3/page02.jsp");
       rd.forward(request,response);
@@ -74,10 +71,9 @@ public class FrontEnd {
 
     try {
       bean11 = new BeanP11();
-      bean11.setDegrees(degrees);
       bean11.setPphase(pphase);
       bean11.setPassword(password);
-      bean11.setDegrees_HTML();
+      bean11.setDegrees(degrees);
       request.setAttribute("bean11", bean11);
       RequestDispatcher rd = sc.getRequestDispatcher("/p3/page11.jsp");
       rd.forward(request,response);
@@ -91,11 +87,10 @@ public class FrontEnd {
 
     try {
       bean12 = new BeanP12();
-      bean12.setSubjects(subjects);
       bean12.setPphase(pphase);
       bean12.setPdegree(pdegree);
       bean12.setPassword(password);
-      bean12.setSubjects_HTML();
+      bean12.setSubjects(subjects);
       request.setAttribute("bean12", bean12);
       RequestDispatcher rd = sc.getRequestDispatcher("/p3/page12.jsp");
       rd.forward(request,response);
@@ -109,12 +104,11 @@ public class FrontEnd {
 
     try {
       bean13 = new BeanP13();
-      bean13.setStudents(students);
       bean13.setPphase(pphase);
       bean13.setPdegree(pdegree);
       bean13.setPsubject(psubject);
       bean13.setPassword(password);
-      bean13.setStudents_HTML();
+      bean13.setStudents(students);
       request.setAttribute("bean13", bean13);
       RequestDispatcher rd = sc.getRequestDispatcher("/p3/page13.jsp");
       rd.forward(request,response);

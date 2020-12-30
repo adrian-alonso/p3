@@ -15,6 +15,9 @@ public class BeanP02 {
   private String warnings_HTML;
   private String errors_HTML;
   private String fatalErrors_HTML;
+  private int warningsSize;
+  private int errorsSize;
+  private int fatalErrorsSize;
 
   //CONSTRUCTOR
   public BeanP02() {
@@ -56,6 +59,18 @@ public class BeanP02 {
     return this.fatalErrors_HTML;
   }
 
+  public int getWarningsSize() {
+    return this.warningsSize;
+  }
+
+  public int getErrorsSize() {
+    return this.errorsSize;
+  }
+
+  public int getFatalErrorsSize() {
+    return this.fatalErrorsSize;
+  }
+
   //SETTERS
   public void setPphase(String pphase) {
     this.pphase = pphase;
@@ -69,16 +84,19 @@ public class BeanP02 {
 
   public void setWarnings(ArrayList<WarningFile> warnings) {
     this.warnings = warnings;
+    this.setWarnings_HTML();
     return;
   }
 
   public void setErrors(ArrayList<ErrorFile> errors) {
     this.errors = errors;
+    this.setErrors_HTML();
     return;
   }
 
   public void setFatalErrors(ArrayList<FatalErrorFile> fatalErrors) {
     this.fatalErrors = fatalErrors;
+    this.setFatalErrors_HTML();
     return;
   }
 
@@ -89,6 +107,7 @@ public class BeanP02 {
         this.warnings_HTML += "<ol><li type=\"circle\">" + warnings.get(i).getWarnings().get(j) + "</li></ol>";
       }
     }
+    this.setWarningsSize();
     return;
   }
 
@@ -99,6 +118,7 @@ public class BeanP02 {
         this.errors_HTML += "<ol><li type=\"circle\">" + errors.get(i).getErrors().get(j) + "</li></ol>";
       }
     }
+    this.setErrorsSize();
     return;
   }
 
@@ -109,6 +129,22 @@ public class BeanP02 {
         this.fatalErrors_HTML += "<ol><li type=\"circle\">" + fatalErrors.get(i).getFatalErrors().get(j) + "</li></ol>";
       }
     }
+    this.setFatalErrorsSize();
+    return;
+  }
+
+  public void setWarningsSize() {
+    this.warningsSize = warnings.size();
+    return;
+  }
+
+  public void setErrorsSize() {
+    this.errorsSize = errors.size();
+    return;
+  }
+
+  public void setFatalErrorsSize() {
+    this.fatalErrorsSize = fatalErrors.size();
     return;
   }
 

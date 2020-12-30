@@ -55,6 +55,7 @@ public class BeanP12 {
 
   public void setSubjects(ArrayList<Subject> subjects) {
     this.subjects = subjects;
+    this.setSubjects_HTML();
     return;
   }
 

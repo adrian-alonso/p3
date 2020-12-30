@@ -65,6 +65,7 @@ public class BeanP13 {
 
   public void setStudents(ArrayList<Student> students) {
     this.students = students;
+    this.setStudents_HTML();
     return;
   }
 

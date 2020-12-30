@@ -44,6 +44,7 @@ public class BeanP11 {
 
   public void setDegrees(ArrayList<String> degrees) {
     this.degrees = degrees;
+    this.setDegrees_HTML();
     return;
   }
 
