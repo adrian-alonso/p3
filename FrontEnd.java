@@ -126,7 +126,7 @@ public class FrontEnd {
     out.println("<html>");
     out.println("<head>");
     out.println("<title>P3EA</title>");
-    out.println("<link rel=\"stylesheet\" href=\"/sint101/p3/eaml.css\">");
+    out.println("<link rel=\"stylesheet\" href=\"p3/eaml.css\">");
     out.println("<meta charset=\"UTF-8\">");
     out.println("</head>");
     out.println("<body>");

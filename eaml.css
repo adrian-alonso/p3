@@ -36,3 +36,20 @@ body {
   margin: 4px 2px;
   cursor: pointer;
 }
+
+/* TABLA */
+table {
+  background-color: white;
+}
+
+#tr1 {
+  background-color: #33adff;
+}
+
+#tr2 {
+  background-color: #33cccc;
+}
+
+#tr3 {
+  background-color: #ccfff2;
+}

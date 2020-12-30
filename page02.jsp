@@ -1,10 +1,11 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 
+<!DOCTYPE html>
 <html>
   <head>
     <title>P3EA</title>
-    <link rel="stylesheet" href="/sint101/p3/eaml.css">
+    <link rel="stylesheet" href="p3/eaml.css">
     <meta charset="UTF-8">
     <jsp:useBean id="bean02" scope="session" class="p3.BeanP02"/>
   </head>

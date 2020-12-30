@@ -1,7 +1,7 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
-<%@page import="p3.BeanBadPassword"%>
 
+<!DOCTYPE html>
 <html>
   <head>
     <title>P3EA</title>
